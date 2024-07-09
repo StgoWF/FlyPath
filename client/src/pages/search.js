@@ -1,14 +1,52 @@
-// src/pages/Search.js
+// src/pages/search.js
 import React from 'react';
+import { useQuery, gql } from '@apollo/client';
 import SearchPanel from '../components/search-panel';
 
+const GET_FLIGHTS = gql`
+  query GetFlights($fromCity: String!, $toCity: String!, $departDate: String!, $returnDate: String) {
+    flights(fromCity: $fromCity, toCity: $toCity, departDate: $departDate, returnDate: $returnDate) {
+      id
+      fromCity
+      toCity
+      departDate
+      returnDate
+      travelClass
+      airlineCode
+      flightDuration
+      price
+    }
+  }
+`;
+
 const Search = () => {
+  const { loading, error, data, refetch } = useQuery(GET_FLIGHTS, {
+    skip: true, // No ejecutar la consulta al cargar el componente
+  });
+
+  const handleSearch = (searchParams) => {
+    refetch(searchParams);
+  };
+
   return (
     <div className="wrapper">
-      <SearchPanel />
+      <SearchPanel onSearch={handleSearch} />
       <main className="content-panel">
-        <div id="resultsContainer"></div>
-        {/* Content here */}
+        <div id="resultsContainer">
+          {loading && <p>Loading...</p>}
+          {error && <p>Error: {error.message}</p>}
+          {data && data.flights.map((flight) => (
+            <div key={flight.id}>
+              <p>{flight.fromCity} to {flight.toCity}</p>
+              <p>Departure Date: {flight.departDate}</p>
+              <p>Return Date: {flight.returnDate}</p>
+              <p>Class: {flight.travelClass}</p>
+              <p>Airline: {flight.airlineCode}</p>
+              <p>Duration: {flight.flightDuration}</p>
+              <p>Price: ${flight.price}</p>
+            </div>
+          ))}
+        </div>
       </main>
     </div>
   );

@@ -1,7 +1,7 @@
-// src/components/SearchPanel.js
+// src/components/search-panel.js
 import React, { useState } from 'react';
 
-const SearchPanel = () => {
+const SearchPanel = ({ onSearch }) => {
   const [tripType, setTripType] = useState('oneway');
   const [fromCity, setFromCity] = useState('');
   const [toCity, setToCity] = useState('');
@@ -14,7 +14,12 @@ const SearchPanel = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para buscar vuelos
+    onSearch({
+      fromCity,
+      toCity,
+      departDate,
+      returnDate: tripType === 'roundtrip' ? returnDate : null,
+    });
   };
 
   return (
