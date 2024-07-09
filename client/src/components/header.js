@@ -9,6 +9,7 @@ const Header = ({ loggedIn }) => {
       <nav>
         <ul className="nav_links">
           <li><Link to="/">Home</Link></li>
+          <li><Link to="/search">Search</Link></li> {/* Enlace de búsqueda agregado */}
           {loggedIn ? (
             <>
               <li><Link to="/saved-flights">Saved Flights</Link></li>
