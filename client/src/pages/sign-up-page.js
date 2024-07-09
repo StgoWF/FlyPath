@@ -1,21 +1,28 @@
-// src/pages/SignUpPage.js
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { SIGNUP_USER } from '../graphql/mutations';
 
 const SignUpPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [signup, { error }] = useMutation(SIGNUP_USER);
+  const [formState, setFormState] = useState({ username: '', password: '' });
+  const [signUp, { error }] = useMutation(SIGNUP_USER);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const { data } = await signup({ variables: { username, password } });
-      localStorage.setItem('id_token', data.signup.token);
-      window.location.assign('/');
-    } catch (err) {
-      console.error(err);
+      const { data } = await signUp({
+        variables: { ...formState },
+      });
+      // Handle successful sign up (e.g., save token, redirect)
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -26,29 +33,15 @@ const SignUpPage = () => {
         <form onSubmit={handleSubmit}>
           <div className="input-field">
             <i className="fa-solid fa-user"></i>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+            <input type="text" name="username" placeholder="Username" value={formState.username} onChange={handleChange} required />
           </div>
           <div className="input-field">
             <i className="fa-solid fa-key"></i>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+            <input type="password" name="password" placeholder="Password" value={formState.password} onChange={handleChange} required />
           </div>
           <button type="submit">Sign Up</button>
         </form>
-        {error && <p>Error signing up</p>}
+        {error && <div>Error signing up</div>}
         <label>Already a member?</label>
         <a href="/login" id="login_link">Login instead</a>
       </div>

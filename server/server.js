@@ -18,7 +18,8 @@ const server = new ApolloServer({
   playground: true,    // Habilita GraphQL Playground
 });
 
-server.start().then(() => {
+async function startServer() {
+  await server.start();
   server.applyMiddleware({ app });
 
   app.use(express.urlencoded({ extended: false }));
@@ -39,4 +40,6 @@ server.start().then(() => {
   }).catch(err => {
     console.error('Error connecting to MongoDB', err);
   });
-});
+}
+
+startServer();
