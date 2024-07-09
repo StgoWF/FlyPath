@@ -1,6 +1,7 @@
 // server/schemas/resolvers.js
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Trip } = require('../models');
+const User = require('../models/user');
+const Trip = require('../models/trip');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {

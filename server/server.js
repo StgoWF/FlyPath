@@ -1,42 +1,42 @@
 // server/server.js
 const express = require('express');
-const { createHandler } = require('graphql-http/lib/use/express');
+const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const path = require('path');
-const { makeExecutableSchema } = require('@graphql-tools/schema');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-const schema = makeExecutableSchema({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => authMiddleware({ req }),
+  introspection: true, // Habilita introspection
+  playground: true,    // Habilita GraphQL Playground
 });
 
-app.use('/graphql', createHandler({
-  schema,
-  context: authMiddleware,
-}));
+server.start().then(() => {
+  server.applyMiddleware({ app });
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/build')));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../client/build/index.html'));
+    });
+  }
+
+  mongoose.connect(process.env.MONGODB_URI).then(() => {
+    console.log('🌍 Connected to MongoDB');
+    app.listen(PORT, () => {
+      console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+    });
+  }).catch(err => {
+    console.error('Error connecting to MongoDB', err);
   });
-}
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-app.listen(PORT, () => {
-  console.log(`🌍 Now listening on http://localhost:${PORT}`);
-  console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
 });
