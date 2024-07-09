@@ -1,7 +1,9 @@
-// src/components/search-panel.js
+// src/components/SearchPanel.js
 import React, { useState } from 'react';
+import { getAirportIDFromCity, searchFlights } from '../flightAPI';
+import FlightCard from './flightCard';
 
-const SearchPanel = ({ onSearch }) => {
+const SearchPanel = () => {
   const [tripType, setTripType] = useState('oneway');
   const [fromCity, setFromCity] = useState('');
   const [toCity, setToCity] = useState('');
@@ -11,15 +13,52 @@ const SearchPanel = ({ onSearch }) => {
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
   const [travelClass, setTravelClass] = useState('economy');
+  const [flightResults, setFlightResults] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSearch({
-      fromCity,
-      toCity,
-      departDate,
-      returnDate: tripType === 'roundtrip' ? returnDate : null,
-    });
+    try {
+      console.log(`Fetching airport ID for departure city: ${fromCity}`);
+      const fromId = await getAirportIDFromCity(fromCity);
+      console.log(`Fetched airport ID for ${fromCity}: ${fromId}`);
+
+      console.log(`Fetching airport ID for destination city: ${toCity}`);
+      const toId = await getAirportIDFromCity(toCity);
+      console.log(`Fetched airport ID for ${toCity}: ${toId}`);
+
+      let results;
+      if (tripType === 'roundtrip') {
+        console.log(`Searching outbound flights from ${fromId} to ${toId} on ${departDate}`);
+        const outboundResults = await searchFlights(fromId, toId, departDate);
+        console.log('Outbound flight results:', outboundResults);
+
+        console.log(`Searching return flights from ${toId} to ${fromId} on ${returnDate}`);
+        const returnResults = await searchFlights(toId, fromId, returnDate);
+        console.log('Return flight results:', returnResults);
+
+        results = { outboundResults, returnResults };
+      } else {
+        console.log(`Searching flights from ${fromId} to ${toId} on ${departDate}`);
+        results = await searchFlights(fromId, toId, departDate);
+        console.log('Flight results:', results);
+      }
+
+      setFlightResults(results.data && results.data.flightOffers ? results.data.flightOffers : []);
+    } catch (error) {
+      console.error('Error searching flights:', error);
+    }
+  };
+
+  const handleSave = (flight) => {
+    // Implementar lógica de guardar vuelo
+  };
+
+  const handleDelete = (id) => {
+    // Implementar lógica de eliminar vuelo
+  };
+
+  const handleUpdate = (id) => {
+    // Implementar lógica de actualizar vuelo
   };
 
   return (
@@ -82,6 +121,11 @@ const SearchPanel = ({ onSearch }) => {
         </div>
         <button type="submit" className="search-btn">Search Flights</button>
       </form>
+      <div id="resultsContainer">
+        {flightResults.length > 0 ? flightResults.map((flight, index) => (
+          <FlightCard key={index} flight={flight} isReturn={false} onSave={handleSave} onDelete={handleDelete} onUpdate={handleUpdate} />
+        )) : <p>No flight results found.</p>}
+      </div>
     </aside>
   );
 };
