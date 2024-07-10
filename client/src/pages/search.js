@@ -1,23 +1,9 @@
 // src/pages/search.js
+// src/pages/Search.js
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
+import { GET_FLIGHTS } from '../graphql/mutations';
 import SearchPanel from '../components/search-panel';
-
-const GET_FLIGHTS = gql`
-  query GetFlights($fromCity: String!, $toCity: String!, $departDate: String!, $returnDate: String) {
-    flights(fromCity: $fromCity, toCity: $toCity, departDate: $departDate, returnDate: $returnDate) {
-      id
-      fromCity
-      toCity
-      departDate
-      returnDate
-      travelClass
-      airlineCode
-      flightDuration
-      price
-    }
-  }
-`;
 
 const Search = () => {
   const { loading, error, data, refetch } = useQuery(GET_FLIGHTS, {

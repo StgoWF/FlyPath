@@ -1,7 +1,8 @@
-// src/components/SearchPanel.js
 import React, { useState } from 'react';
 import { getAirportIDFromCity, searchFlights } from '../flightAPI';
 import FlightCard from './flightCard';
+import { useMutation } from '@apollo/client';
+import { SAVE_FLIGHT } from '../graphql/mutations';
 
 const SearchPanel = () => {
   const [tripType, setTripType] = useState('oneway');
@@ -14,6 +15,7 @@ const SearchPanel = () => {
   const [infants, setInfants] = useState(0);
   const [travelClass, setTravelClass] = useState('economy');
   const [flightResults, setFlightResults] = useState([]);
+  const [saveFlight] = useMutation(SAVE_FLIGHT);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,25 +42,85 @@ const SearchPanel = () => {
       } else {
         console.log(`Searching flights from ${fromId} to ${toId} on ${departDate}`);
         results = await searchFlights(fromId, toId, departDate);
-        console.log('Flight results:', results);
+
       }
 
-      setFlightResults(results.data && results.data.flightOffers ? results.data.flightOffers : []);
+      setFlightResults(results.data ? results.data.flightOffers : []);
     } catch (error) {
       console.error('Error searching flights:', error);
     }
   };
 
-  const handleSave = (flight) => {
-    // Implementar lógica de guardar vuelo
+  const handleSave = async (flight) => {
+    try {
+        console.log('Flight object details:', flight);
+  
+        if (!flight.segments || flight.segments.length === 0 || !flight.segments[0].departureAirport || !flight.segments[0].arrivalAirport) {
+            throw new Error('Flight object is missing departure or arrival airport');
+        }
+  
+        const departureAirport = flight.segments[0].departureAirport;
+        const arrivalAirport = flight.segments[0].arrivalAirport;
+  
+        if (!flight.departureTime) {
+            throw new Error('flight.departureTime is missing or invalid');
+        }
+        if (!flight.airlineCode) {
+            throw new Error('flight.airlineCode is missing or invalid');
+        }
+        if (!flight.flightDuration) {
+            throw new Error('flight.flightDuration is missing or invalid');
+        }
+  
+        const departDate = flight.departureTime;
+        const price = parseFloat(flight.priceBreakdown.total.units); // Convertir el precio a número flotante
+        const flightDuration = flight.flightDuration.toString(); // Convertir la duración a cadena de texto
+  
+        console.log('Depart Date:', departDate);
+        console.log('Price:', price);
+  
+        const input = {
+            userId: "668cc73fd31e16e8dd9751ce", // Reemplaza esto con un ID de usuario válido
+            fromCity: departureAirport.code,
+            toCity: arrivalAirport.code,
+            departDate: departDate,
+            returnDate: flight.returnTime || "",
+            passengersAdults: 1, // Aquí deberías usar la variable correspondiente
+            passengersChildren: 0, // Aquí deberías usar la variable correspondiente
+            passengersInfants: 0, // Aquí deberías usar la variable correspondiente
+            travelClass: "economy", // Aquí deberías usar la variable correspondiente
+            airlineCode: flight.airlineCode,
+            flightDuration: flightDuration, // Asegurarse de que es una cadena de texto
+            price: price,
+            departTime: flight.departureTime,
+            arrivalTime: flight.arrivalTime
+        };
+  
+        console.log('Saving flight with input:', input);
+  
+        await saveFlight({
+            variables: { input }
+        });
+  
+        alert('Flight saved successfully!');
+    } catch (error) {
+        console.error('Error saving flight:', error);
+        alert('Failed to save flight');
+    }
   };
+  
 
+  
+
+  // Definiciones vacías para handleDelete y handleUpdate
   const handleDelete = (id) => {
-    // Implementar lógica de eliminar vuelo
+    // Implement flight deletion logic
+    console.log(`Delete flight with id: ${id}`);
   };
 
   const handleUpdate = (id) => {
-    // Implementar lógica de actualizar vuelo
+    // Implement flight update logic
+    console.log(`Update flight with id: ${id}`);
   };
 
   return (
@@ -122,8 +184,8 @@ const SearchPanel = () => {
         <button type="submit" className="search-btn">Search Flights</button>
       </form>
       <div id="resultsContainer">
-        {flightResults.length > 0 ? flightResults.map((flight, index) => (
-          <FlightCard key={index} flight={flight} isReturn={false} onSave={handleSave} onDelete={handleDelete} onUpdate={handleUpdate} />
+        {Array.isArray(flightResults) ? flightResults.map((flight, index) => (
+          <FlightCard key={index} flight={flight} isReturn={false} onSave={handleSave} onDelete={() => handleDelete(flight.id)} onUpdate={() => handleUpdate(flight.id)} />
         )) : <p>No flight results found.</p>}
       </div>
     </aside>

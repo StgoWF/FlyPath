@@ -2,56 +2,57 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../graphql/mutations';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginPage = ({ setLoggedIn }) => {
+  const [formState, setFormState] = useState({ username: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     try {
-      const { data } = await login({ variables: { username, password } });
+      const { data } = await login({
+        variables: { ...formState },
+      });
+
       localStorage.setItem('id_token', data.login.token);
-      window.location.assign('/');
-    } catch (err) {
-      console.error(err);
+      setLoggedIn(true);
+      alert('Login successful!');
+      navigate('/search');
+    } catch (e) {
+      console.error(e);
     }
   };
 
   return (
-    <div className="main">
-      <div className="login-form" id="main">
-        <h2 className="login-title">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="input-field">
-            <i className="fa-solid fa-user"></i>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-field">
-            <i className="fa-solid fa-key"></i>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Login</button>
-        </form>
-        {error && <p>Error logging in</p>}
-        <label>Not a member?</label>
-        <a href="/signup" id="signup_link">Sign up instead</a>
-      </div>
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          name="username"
+          type="text"
+          value={formState.username}
+          onChange={handleChange}
+        />
+        <input
+          name="password"
+          type="password"
+          value={formState.password}
+          onChange={handleChange}
+        />
+        <button type="submit">Login</button>
+      </form>
+      {error && <p>Login failed</p>}
     </div>
   );
 };

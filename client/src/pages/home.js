@@ -1,13 +1,15 @@
 // src/pages/Home.js
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  return (
-    <main>
-      <h1>Welcome to FlyPath</h1>
-      <p>Your journey starts here.</p>
-    </main>
-  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate('/search');
+  }, [navigate]);
+
+  return null; // No muestra contenido, redirige directamente a /search
 };
 
 export default Home;

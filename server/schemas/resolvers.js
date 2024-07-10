@@ -41,7 +41,29 @@ const resolvers = {
       const trip = await Trip.create(args);
       return trip;
     },
-  },
+    saveFlight: async (parent, { input }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+
+      const { userId, price, ...rest } = input;
+      const newInput = {
+        ...rest,
+        userId: context.user._id,
+        price: parseFloat(price) // Asegúrate de que el precio es un número flotante
+      };
+
+      console.log("Received input for saveFlight mutation:", newInput);
+
+      try {
+        const trip = await Trip.create(newInput);
+        return trip;
+      } catch (error) {
+        console.error("Error creating trip:", error);
+        throw new Error("Failed to save flight");
+      }
+    }
+  }
 };
 
 module.exports = resolvers;

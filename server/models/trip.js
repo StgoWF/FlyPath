@@ -45,7 +45,7 @@ const tripSchema = new Schema({
     type: String,
   },
   price: {
-    type: Schema.Types.Decimal128,
+    type: Number, // Cambiado a Number
   },
   departTime: {
     type: String,

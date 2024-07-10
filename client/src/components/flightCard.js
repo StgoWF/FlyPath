@@ -1,16 +1,16 @@
-// src/components/FlightCard.js
+// src/components/flightCard.js
 import React from 'react';
 
 const FlightCard = ({ flight, isReturn, onSave, onDelete, onUpdate }) => {
   const segments = flight.segments[0];
-  const departureAirport = segments.departureAirport.code;
-  const arrivalAirport = segments.arrivalAirport.code;
+
   const price = flight.priceBreakdown.total.units;
-  const departureTime = new Date(segments.departureTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-  const arrivalTime = new Date(segments.arrivalTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
   const duration = formatDuration(segments.totalTime);
   const airlineName = segments.legs[0].carriersData[0].name;
+  const airlineCode = segments.legs[0].carriersData[0].code;
+  const flightDuration = segments.totalTime;
   const layovers = segments.legs[0].flightStops.join(', ');
+
 
   return (
     <section className="cardsection">
@@ -19,15 +19,38 @@ const FlightCard = ({ flight, isReturn, onSave, onDelete, onUpdate }) => {
           <div className="airlineCode">{airlineName}</div>
           <div className="layOvers">{`Layovers: ${layovers}`}</div>
         </div>
-        <div className="travelInfoContainer">
-          <div className="departAirport">{departureAirport}<br /><span className="time">{departureTime}</span></div>
-          <span className="separator">--------------------</span>
-          <div className="arrivalAirport">{arrivalAirport}<br /><span className="time">{arrivalTime}</span></div>
-        </div>
+
         <div className="flightDuration">{`Duration: ${duration}`}</div>
         <div className="bookingContainer">
           <div className="airfairprice">{`$ ${price}`}</div>
-          <button className="saveButton" onClick={() => onSave(flight)}>Save Flight</button>
+          <button className="saveButton" onClick={() => {
+            // Ensure flight.departureTime, flight.arrivalTime, flight.airlineCode, and flight.flightDuration are correctly assigned from segments
+            flight.departureTime = segments.departureTime;
+            flight.arrivalTime = segments.arrivalTime;
+            flight.airlineCode = airlineCode;
+            flight.flightDuration = flightDuration;
+
+            // Verificar si los campos necesarios están presentes
+            if (!flight.departureTime) {
+              console.error('flight.departureTime is missing or invalid');
+              return;
+            }
+            if (!flight.arrivalTime) {
+              console.error('flight.arrivalTime is missing or invalid');
+              return;
+            }
+            if (!flight.airlineCode) {
+              console.error('flight.airlineCode is missing or invalid');
+              return;
+            }
+            if (!flight.flightDuration) {
+              console.error('flight.flightDuration is missing or invalid');
+              return;
+            }
+
+            console.log('Passing flight to onSave:', flight);
+            onSave(flight);
+          }}>Save Flight</button>
         </div>
       </div>
     </section>

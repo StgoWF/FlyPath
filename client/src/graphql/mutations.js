@@ -1,5 +1,26 @@
-// client/src/graphql/mutations.js
 import { gql } from '@apollo/client';
+
+export const SAVE_FLIGHT = gql`
+  mutation SaveFlight($input: SaveFlightInput!) {
+    saveFlight(input: $input) {
+      _id
+      userId
+      fromCity
+      toCity
+      departDate
+      returnDate
+      passengersAdults
+      passengersChildren
+      passengersInfants
+      travelClass
+      airlineCode
+      flightDuration
+      price
+      departTime
+      arrivalTime
+    }
+  }
+`;
 
 export const SIGNUP_USER = gql`
   mutation addUser($username: String!, $password: String!) {
@@ -21,6 +42,22 @@ export const LOGIN_USER = gql`
         _id
         username
       }
+    }
+  }
+`;
+
+export const GET_FLIGHTS = gql`
+  query GetFlights($fromCity: String!, $toCity: String!, $departDate: String!, $returnDate: String) {
+    flights(fromCity: $fromCity, toCity: $toCity, departDate: $departDate, returnDate: $returnDate) {
+      id
+      fromCity
+      toCity
+      departDate
+      returnDate
+      travelClass
+      airlineCode
+      flightDuration
+      price
     }
   }
 `;

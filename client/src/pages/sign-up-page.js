@@ -1,10 +1,21 @@
+// src/pages/SignUpPage.js
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 import { SIGNUP_USER } from '../graphql/mutations';
 
 const SignUpPage = () => {
   const [formState, setFormState] = useState({ username: '', password: '' });
-  const [signUp, { error }] = useMutation(SIGNUP_USER);
+  const navigate = useNavigate();
+  const [signUp, { error }] = useMutation(SIGNUP_USER, {
+    onCompleted: () => {
+      alert('Signup successful! Please log in.');
+      navigate('/login');
+    },
+    onError: (error) => {
+      alert(`Signup failed: ${error.message}`);
+    }
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,10 +28,7 @@ const SignUpPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await signUp({
-        variables: { ...formState },
-      });
-      // Handle successful sign up (e.g., save token, redirect)
+      await signUp({ variables: { ...formState } });
     } catch (e) {
       console.error(e);
     }
@@ -41,7 +49,6 @@ const SignUpPage = () => {
           </div>
           <button type="submit">Sign Up</button>
         </form>
-        {error && <div>Error signing up</div>}
         <label>Already a member?</label>
         <a href="/login" id="login_link">Login instead</a>
       </div>

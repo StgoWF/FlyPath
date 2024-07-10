@@ -37,10 +37,43 @@ const typeDefs = gql`
     trip(_id: ID!): Trip
   }
 
+  input SaveFlightInput {
+    userId: ID!
+    fromCity: String!
+    toCity: String!
+    departDate: String!
+    returnDate: String
+    passengersAdults: Int!
+    passengersChildren: Int
+    passengersInfants: Int
+    travelClass: String!
+    airlineCode: String!
+    flightDuration: String!
+    price: Float!
+    departTime: String!
+    arrivalTime: String!
+  }
+
   type Mutation {
     addUser(username: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
-    addTrip(userId: ID!, fromCity: String!, toCity: String!, departDate: String!, returnDate: String, passengersAdults: Int!, passengersChildren: Int, passengersInfants: Int, travelClass: String!, airlineCode: String, flightDuration: String, price: Float, departTime: String, arrivalTime: String): Trip
+    addTrip(
+      userId: ID!,
+      fromCity: String!,
+      toCity: String!,
+      departDate: String!,
+      returnDate: String,
+      passengersAdults: Int!,
+      passengersChildren: Int,
+      passengersInfants: Int,
+      travelClass: String!,
+      airlineCode: String,
+      flightDuration: String,
+      price: Float,
+      departTime: String,
+      arrivalTime: String
+    ): Trip
+    saveFlight(input: SaveFlightInput!): Trip
   }
 `;
 
