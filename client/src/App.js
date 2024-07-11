@@ -9,6 +9,7 @@ import Search from './pages/search';
 import SavedFlightsPage from './pages/saved-flights-page';
 import SignUpPage from './pages/sign-up-page';
 import LoginPage from './pages/login-page';
+import PaymentPage from './components/paymentForm';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/saved-flights" element={<SavedFlightsPage />} />
           <Route path="/signup" element={<SignUpPage setLoggedIn={setLoggedIn} />} />
           <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
         <Footer />
       </Router>

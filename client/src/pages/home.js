@@ -9,7 +9,7 @@ const Home = () => {
     navigate('/search');
   }, [navigate]);
 
-  return null; // No muestra contenido, redirige directamente a /search
+  return null; 
 };
 
 export default Home;

@@ -1,4 +1,3 @@
-// server/schemas/typeDefs.js
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
@@ -54,6 +53,17 @@ const typeDefs = gql`
     arrivalTime: String!
   }
 
+  input UpdateFlightInput {
+    fromCity: String
+    toCity: String
+    departDate: String
+    returnDate: String
+    travelClass: String
+    airlineCode: String
+    flightDuration: String
+    price: Float
+  }
+
   type Mutation {
     addUser(username: String!, password: String!): Auth
     login(username: String!, password: String!): Auth
@@ -74,6 +84,8 @@ const typeDefs = gql`
       arrivalTime: String
     ): Trip
     saveFlight(input: SaveFlightInput!): Trip
+    deleteFlight(id: ID!): Trip
+    updateFlight(id: ID!, input: UpdateFlightInput!): Trip
   }
 `;
 

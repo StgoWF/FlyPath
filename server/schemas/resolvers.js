@@ -1,4 +1,3 @@
-// server/schemas/resolvers.js
 const { AuthenticationError } = require('apollo-server-express');
 const User = require('../models/user');
 const Trip = require('../models/trip');
@@ -50,18 +49,21 @@ const resolvers = {
       const newInput = {
         ...rest,
         userId: context.user._id,
-        price: parseFloat(price) // Asegúrate de que el precio es un número flotante
+        price: parseFloat(price)
       };
-
-      console.log("Received input for saveFlight mutation:", newInput);
 
       try {
         const trip = await Trip.create(newInput);
         return trip;
       } catch (error) {
-        console.error("Error creating trip:", error);
         throw new Error("Failed to save flight");
       }
+    },
+    deleteFlight: async (parent, { id }) => {
+      return await Trip.findByIdAndDelete(id);
+    },
+    updateFlight: async (parent, { id, input }) => {
+      return await Trip.findByIdAndUpdate(id, input, { new: true });
     }
   }
 };

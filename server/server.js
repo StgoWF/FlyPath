@@ -1,4 +1,3 @@
-// server/server.js
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
@@ -7,15 +6,18 @@ const { authMiddleware } = require('./utils/auth');
 const path = require('path');
 require('dotenv').config();
 
-const app = express();
+const app = express();  // Initialize app here
+
+const stripeRoutes = require('./routes/stripe');  // Import Stripe routes
+
 const PORT = process.env.PORT || 4000;
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => authMiddleware({ req }),
-  introspection: true, // Habilita introspection
-  playground: true,    // Habilita GraphQL Playground
+  introspection: true,
+  playground: true,
 });
 
 async function startServer() {
@@ -24,6 +26,9 @@ async function startServer() {
 
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
+
+  // Use Stripe routes after initializing app and before production setup
+  app.use('/api/stripe', stripeRoutes);
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));

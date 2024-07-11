@@ -61,3 +61,31 @@ export const GET_FLIGHTS = gql`
     }
   }
 `;
+
+
+
+
+
+export const DELETE_FLIGHT = gql`
+  mutation deleteFlight($id: ID!) {
+    deleteFlight(id: $id) {
+      _id
+    }
+  }
+`;
+
+export const UPDATE_FLIGHT = gql`
+  mutation updateFlight($id: ID!, $input: UpdateFlightInput!) {
+    updateFlight(id: $id, input: $input) {
+      _id
+      fromCity
+      toCity
+      departDate
+      returnDate
+      travelClass
+      airlineCode
+      flightDuration
+      price
+    }
+  }
+`;

@@ -1,7 +1,6 @@
 // src/flightAPI.js
 const API_KEY = process.env.REACT_APP_RAPIDAPI_KEY;
 const BASE_URL = 'https://booking-com15.p.rapidapi.com/api/v1';
-console.log('RapidAPI Key:', API_KEY); // Debe mostrar la clave en la consola
 
 export const getAirportIDFromCity = async (city) => {
   const url = `${BASE_URL}/flights/searchDestination?query=${encodeURIComponent(city)}`;
