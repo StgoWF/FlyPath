@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_SAVED_FLIGHTS } from '../graphql/queries';
 import { DELETE_FLIGHT, UPDATE_FLIGHT } from '../graphql/mutations';
 import UpdateFlightForm from '../components/updateFlightForm';
+import styles from './SavedFlightsPage.module.css';
 
 const SavedFlightsPage = () => {
   const { loading, error, data } = useQuery(GET_SAVED_FLIGHTS);
@@ -44,40 +45,64 @@ const SavedFlightsPage = () => {
   };
 
   return (
-    <div className="container">
-      <div className="saved-flights-container">
-        <ul className="cardFlights">
-          <div className="card col-6 offset-3">
-            <h1>Saved Flights</h1>
-            <div className="card-body">
-              {flights.map((flight) => (
-                <li key={flight._id} className="savedFlights">
-                  From {flight.fromCity} to {flight.toCity} <br />
-                  Departure Date: {flight.departDate} {flight.departTime} <br />
-                  Return Date: {flight.returnDate} <br />
-                  Class: {flight.travelClass} <br />
-                  Airline: {flight.airlineCode} <br />
-                  Duration: {flight.flightDuration} <br />
-                  Price: ${flight.price} <br />
-                  <button
-                    className="delete-button"
-                    data-id={flight._id}
-                    onClick={() => handleDelete(flight._id)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    className="update-button"
-                    data-id={flight._id}
-                    onClick={() => handleUpdate(flight)}
-                  >
-                    Update
-                  </button>
-                  <br />
-                </li>
-              ))}
-            </div>
-          </div>
+    <div className={styles.container}>
+      <div className={styles.savedFlightsContainer}>
+        <h1>Saved Flights</h1>
+        <ul className={styles.cardFlights}>
+          {flights.map((flight) => (
+            <li key={flight._id} className={styles.card}>
+              <div className={styles.flightInfo}>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>From:</span>
+                  <span className={styles.flightInfoValue}>{flight.fromCity}</span>
+                </div>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>To:</span>
+                  <span className={styles.flightInfoValue}>{flight.toCity}</span>
+                </div>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>Departure Date:</span>
+                  <span className={styles.flightInfoValue}>{new Date(parseInt(flight.departDate)).toLocaleString()}</span>
+                </div>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>Return Date:</span>
+                  <span className={styles.flightInfoValue}>{flight.returnDate ? new Date(parseInt(flight.returnDate)).toLocaleString() : 'N/A'}</span>
+                </div>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>Class:</span>
+                  <span className={styles.flightInfoValue}>{flight.travelClass}</span>
+                </div>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>Airline:</span>
+                  <span className={styles.flightInfoValue}>{flight.airlineCode}</span>
+                </div>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>Duration:</span>
+                  <span className={styles.flightInfoValue}>{flight.flightDuration}</span>
+                </div>
+                <div className={styles.flightInfoRow}>
+                  <span className={styles.flightInfoLabel}>Price:</span>
+                  <span className={styles.flightInfoValue}>${flight.price}</span>
+                </div>
+              </div>
+              <div className={styles.buttonGroup}>
+                <button
+                  className={styles.deleteButton}
+                  data-id={flight._id}
+                  onClick={() => handleDelete(flight._id)}
+                >
+                  Delete
+                </button>
+                <button
+                  className={styles.updateButton}
+                  data-id={flight._id}
+                  onClick={() => handleUpdate(flight)}
+                >
+                  Update
+                </button>
+              </div>
+            </li>
+          ))}
         </ul>
         {updatingFlight && (
           <UpdateFlightForm
