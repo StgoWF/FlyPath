@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { SIGNUP_USER } from '../graphql/mutations';
+import './SignUpPage.css';
 
 const SignUpPage = () => {
   const [formState, setFormState] = useState({ username: '', password: '' });
@@ -35,25 +36,39 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="main">
-      <div className="login-form" id="main">
-        <h2 className="login-title">Sign Up</h2>
+    <div className="signup-container">
+      <div className="background-shapes">
+        <div className="shape shape-1"></div>
+        <div className="shape shape-2"></div>
+      </div>
+      <div className="signup-box">
+        <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-field">
-            <i className="fa-solid fa-user"></i>
-            <input type="text" name="username" placeholder="Username" value={formState.username} onChange={handleChange} required />
-          </div>
-          <div className="input-field">
-            <i className="fa-solid fa-key"></i>
-            <input type="password" name="password" placeholder="Password" value={formState.password} onChange={handleChange} required />
-          </div>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formState.username}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formState.password}
+            onChange={handleChange}
+            required
+          />
           <button type="submit">Sign Up</button>
         </form>
         <label>Already a member?</label>
         <a href="/login" id="login_link">Login instead</a>
+        {error && <p>Signup failed</p>}
       </div>
     </div>
   );
 };
 
 export default SignUpPage;
+
