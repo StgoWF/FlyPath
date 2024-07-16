@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import { GET_FLIGHTS } from '../graphql/mutations';
 import SearchPanel from '../components/search-panel';
 
+
 const Search = () => {
   const { loading, error, data, refetch } = useQuery(GET_FLIGHTS, {
     skip: true, // No ejecutar la consulta al cargar el componente
