@@ -5,6 +5,7 @@ import { GET_FLIGHTS } from '../graphql/mutations';
 import SearchPanel from '../components/search-panel';
 import '../components/SearchPanel.module.css'; 
 
+
 const Search = () => {
   const { loading, error, data, refetch } = useQuery(GET_FLIGHTS, {
     skip: true, 
