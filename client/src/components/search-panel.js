@@ -5,7 +5,6 @@ import { getAirportIDFromCity, searchFlights } from '../flightAPI';
 import FlightCard from './flightCard';
 import { useMutation } from '@apollo/client';
 import { SAVE_FLIGHT } from '../graphql/mutations';
-import "./search.css";
 
 const SearchPanel = ({ onSearch }) => {
   const [tripType, setTripType] = useState('oneway');
