@@ -1,13 +1,13 @@
 // src/pages/search.js
-// src/pages/Search.js
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_FLIGHTS } from '../graphql/mutations';
-import SearchPanel from '../components/SearchPanel';
+import SearchPanel from '../components/search-panel';
+import '../components/SearchPanel.module.css'; 
 
 const Search = () => {
   const { loading, error, data, refetch } = useQuery(GET_FLIGHTS, {
-    skip: true, // No ejecutar la consulta al cargar el componente
+    skip: true, 
   });
 
   const handleSearch = (searchParams) => {

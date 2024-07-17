@@ -1,6 +1,7 @@
 /* src/pages/LoginPage.css */
 
 body {
+<<<<<<< HEAD
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #5a6b64;
@@ -106,6 +107,14 @@ body {
 @media (max-width: 600px) {
   .shape-1, .shape-2 {
     display: none;
+=======
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;;
+>>>>>>> 4ed7a7a940a48774e95f14a6bfae2dedd37f0b3c
   }
 
   .login-box {

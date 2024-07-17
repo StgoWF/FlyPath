@@ -59,6 +59,8 @@ const LoginPage = ({ setLoggedIn }) => {
             onChange={handleChange}
           />
           <button type="submit">Login</button>
+          <label>Not a member?</label>
+          <a href="/signup" id="login_link"> Signup </a>
         </form>
         {error && <p>Login failed</p>}
         <label>Don't have an account?</label>
