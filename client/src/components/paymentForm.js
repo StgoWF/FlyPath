@@ -1,9 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import "./payment.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
+const cardElementOptions = {
+    style: {
+      base: {
+        display: 'flex',
+        color: '#32325d',
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: 'antialiased',
+        fontSize: '16px',
+        '::placeholder': {
+          color: '#aab7c4',
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a',
+      },
+    },
+  };
+  
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
@@ -44,7 +64,7 @@ const PaymentForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <CardElement />
+            <CardElement id='elements' />
             <button type="submit" disabled={!stripe}>Pay</button>
             {errorMessage && <div>{errorMessage}</div>}
         </form>
