@@ -90,6 +90,22 @@ body {
     background-color: #e6a937;
   }
   
+  .signup-box label, .signup-box a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #4a594b;
+  }
+  
+  .signup-box a {
+    color: #fbb040;
+    text-decoration: none;
+  }
+  
+  .signup-box a:hover {
+    text-decoration: underline;
+  }
+  
   @media (max-width: 600px) {
     .shape-1, .shape-2 {
       display: none;
