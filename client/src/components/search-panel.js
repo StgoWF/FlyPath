@@ -3,6 +3,7 @@ import { getAirportIDFromCity, searchFlights } from '../flightAPI';
 import FlightCard from './flightCard';
 import { useMutation } from '@apollo/client';
 import { SAVE_FLIGHT } from '../graphql/mutations';
+import "./search.css";
 
 const SearchPanel = () => {
   const [tripType, setTripType] = useState('oneway');
@@ -124,9 +125,10 @@ const SearchPanel = () => {
   };
 
   return (
-    <aside className="search-panel">
-      <h2 className="search-title">Book a Flight</h2>
+  <aside className="search-panel">
+      
       <form onSubmit={handleSubmit}>
+      <h2 className="search-title">Book a Flight</h2>
         <div className="input-group">
           <label htmlFor="trip-type">Trip Type</label>
           <select id="trip-type" value={tripType} onChange={(e) => setTripType(e.target.value)}>
@@ -155,20 +157,20 @@ const SearchPanel = () => {
           <label htmlFor="passengerDropdown">Passengers</label>
           <div className="passenger-count">
             <label htmlFor="adults">Adults</label>
-            <button type="button" onClick={() => setAdults(adults - 1)} disabled={adults <= 1}>-</button>
             <input type="number" id="adults" value={adults} readOnly />
+            <button type="button" onClick={() => setAdults(adults - 1)} disabled={adults <= 1}>-</button>
             <button type="button" onClick={() => setAdults(adults + 1)}>+</button>
           </div>
           <div className="passenger-count">
             <label htmlFor="children">Children</label>
-            <button type="button" onClick={() => setChildren(children - 1)} disabled={children <= 0}>-</button>
             <input type="number" id="children" value={children} readOnly />
+            <button type="button" onClick={() => setChildren(children - 1)} disabled={children <= 0}>-</button>
             <button type="button" onClick={() => setChildren(children + 1)}>+</button>
           </div>
           <div className="passenger-count">
             <label htmlFor="infants">Infants</label>
-            <button type="button" onClick={() => setInfants(infants - 1)} disabled={infants <= 0}>-</button>
             <input type="number" id="infants" value={infants} readOnly />
+            <button type="button" onClick={() => setInfants(infants - 1)} disabled={infants <= 0}>-</button>
             <button type="button" onClick={() => setInfants(infants + 1)}>+</button>
           </div>
         </div>
@@ -183,12 +185,13 @@ const SearchPanel = () => {
         </div>
         <button type="submit" className="search-btn">Search Flights</button>
       </form>
-      <div id="resultsContainer">
-        {Array.isArray(flightResults) ? flightResults.map((flight, index) => (
-          <FlightCard key={index} flight={flight} isReturn={false} onSave={handleSave} onDelete={() => handleDelete(flight.id)} onUpdate={() => handleUpdate(flight.id)} />
-        )) : <p>No flight results found.</p>}
-      </div>
-    </aside>
+    <div className="content" id="resultsContainer">
+    {Array.isArray(flightResults) ? flightResults.map((flight, index) => (
+      <FlightCard key={index} flight={flight} isReturn={false} onSave={handleSave} onDelete={() => handleDelete(flight.id)} onUpdate={() => handleUpdate(flight.id)} />
+    )) : <p>No flight results found.</p>}
+    </div>
+  </aside>
+
   );
 };
 
