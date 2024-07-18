@@ -1,3 +1,4 @@
+// src/pages/SavedFlightsPage.js
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_SAVED_FLIGHTS } from '../graphql/queries';
