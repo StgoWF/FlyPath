@@ -1,8 +1,7 @@
 /* SavedFlightsPage.module.css */
 .container {
     padding: 20px;
-    background-color: #f7f9fc; /* Fondo claro */
-    min-height: calc(100vh - 100px); /* Asegura que el contenido ocupe al menos toda la pantalla */
+    min-height: calc(100vh - 100px); 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
