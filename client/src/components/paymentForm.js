@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import styles from './payment.module.css';
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 const cardElementOptions = {
@@ -71,9 +72,11 @@ const PaymentForm = () => {
 };
 
 const PaymentPage = () => (
-  <Elements stripe={stripePromise}>
-    <PaymentForm />
-  </Elements>
+  <div className={styles.container}>
+    <Elements stripe={stripePromise}>
+      <PaymentForm />
+    </Elements>
+  </div>
 );
 
 export default PaymentPage;
