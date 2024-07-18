@@ -150,7 +150,7 @@ const SearchPanel = () => {
           <label htmlFor="passengerDropdown">Passengers</label>
           <div className="passenger-count">
             <label htmlFor="adults">Adults</label>
-            <button type="button" onClick={() => setAdults(adults - 1)} disabled={adults <= 1}>-</button>
+            <button type="button" onClick={() => setAdults(adults - 1)} disabled={adults <= 0}>-</button>
             <input type="number" id="adults" value={adults} readOnly />
             <button type="button" onClick={() => setAdults(adults + 1)}>+</button>
           </div>
