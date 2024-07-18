@@ -12,6 +12,7 @@ import LoginPage from './pages/login-page';
 import PaymentPage from './components/paymentForm';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import ButtonLink from './components/learnMore';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/signup" element={<SignUpPage setLoggedIn={setLoggedIn} />} />
           <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
           <Route path="/payment" element={<PaymentPage />} />
+          <Route path='/learnMore' element={<ButtonLink/>} />
         </Routes>
         <Footer />
       </Router>
