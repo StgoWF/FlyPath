@@ -5,6 +5,8 @@ import "./payment.css";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
+
+
 const cardElementOptions = {
     style: {
       base: {
@@ -23,13 +25,17 @@ const cardElementOptions = {
       },
     },
   };
+
+  const appearance = {
+    theme: 'night'
+  };
   
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
     const [clientSecret, setClientSecret] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
+    //const elements = stripe.elements({clientSecret, appearance});
     useEffect(() => {
         fetch('/api/stripe/create-payment-intent', {
             method: 'POST',
@@ -64,7 +70,7 @@ const PaymentForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <CardElement id='elements' />
+            <CardElement id='elements' options={cardElementOptions} />
             <button type="submit" disabled={!stripe}>Pay</button>
             {errorMessage && <div>{errorMessage}</div>}
         </form>
