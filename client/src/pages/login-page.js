@@ -63,8 +63,7 @@ const LoginPage = ({ setLoggedIn }) => {
           <a href="/signup" id="login_link"> Signup </a>
         </form>
         {error && <p>Login failed</p>}
-        <label>Don't have an account?</label>
-        <a href="/signup" id="signup_link">Sign up instead</a>
+
       </div>
     </div>
   );

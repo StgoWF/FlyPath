@@ -3,7 +3,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #5a6b64;
+  background: url('/public/background.jpeg') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .login-container {
@@ -11,7 +12,6 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #5a6b64;
   position: relative;
   padding: 20px;
 }
@@ -45,7 +45,7 @@ body {
 
 .login-box {
   position: relative;
-  background: #f7e5bf;
+  background:whitesmoke;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);

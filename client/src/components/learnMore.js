@@ -2,12 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './learnMore.css';
 
-
 const ButtonLink = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/target-route');
+    navigate('/learnMore');
   };
 
   return (
@@ -32,6 +31,7 @@ const ButtonLink = () => {
         </div>
     </div>
     </div>
+
   );
 };
 
