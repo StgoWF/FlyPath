@@ -1,70 +1,117 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FlyPath
 
-## Available Scripts
+FlyPath is a user-friendly flight search engine that helps users find and compare flights quickly and easily. We provide essential flight details to enable informed travel decisions.
 
-In the project directory, you can run:
+## Deployed Link
 
-### `npm start`
+Check out the deployed application [here](https://flypath-1c59fc52be15.herokuapp.com/).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Screenshots
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Home Page
+![Home Page](./client/public/image.png)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Search Flights**: Users can search for flights by entering the departure city, destination city, and travel dates.
+- **Compare Prices**: View and compare flight prices from different airlines.
+- **Save Flights**: Save flight details for future reference.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Frontend
+- **React.js**: Interactive user interfaces.
+- **Apollo Client**: Manage GraphQL data and state.
+- **CSS Modules**: Scoped and maintainable styles.
+- **Third-Party API**: Fetch flight data.
 
-### `npm run eject`
+### Backend
+- **Node.js with Express.js**: Server setup and backend logic.
+- **GraphQL**: Flexible data querying.
+- **MongoDB**: Storing user and flight data.
+- **Stripe**: Payment processing.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Tools
+- **Git**: Version control.
+- **Webpack**: Module bundling.
+- **ESLint**: Code quality.
+- **Jest**: Unit testing.
+- **Postman**: Testing API endpoints.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Clone the repository:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```bash
+   git clone https://github.com/your-username/FlyPath.git
+   cd FlyPath
+   ```
 
-## Learn More
+2. **Install server dependencies:**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   ```bash
+   npm install
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. **Install client dependencies:**
 
-### Code Splitting
+   ```bash
+   cd client
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+4. **Create a .env file in the root directory and add the following environment variables:**
 
-### Analyzing the Bundle Size
+   ```env
+   REACT_APP_RAPIDAPI_KEY=your_rapidapi_key
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+5. **Run the application:**
 
-### Making a Progressive Web App
+   ```bash
+   cd ..
+   npm run dev
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+6. **Build and run the client:**
 
-### Advanced Configuration
+   ```bash
+   cd client
+   npm run build
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Usage
 
-### Deployment
+1. Open your browser and go to http://localhost:3000 to view the application.
+2. Use the search functionality to find and compare flights.
+3. Save flights for future reference.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Future Development
 
-### `npm run build` fails to minify
+- Comment feature: Allow users to post comments on other individuals' saved flights.
+- Social/Friend feature: Allow users to follow each other.
+- Booking Hotels: Allow users to book hotels and flights through our website.
+- Things-to-do page: Add a page or section that provides activities and places to visit.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
+
+## License
+
+Distributed under the MIT License. See LICENSE for more information.
+
+## Contact
+
+Your Name - your-email@example.com
+
+Project Link: https://github.com/your-username/FlyPath
