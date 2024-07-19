@@ -1,0 +1,25 @@
+
+.contactTitle {
+    color: black;
+    text-align: center;
+}
+
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 3px;
+    border: 3px solid black;
+    margin-top: 10px;
+}
+
+.contactInput {
+    background-color: transparent;
+    color: black;
+    margin-bottom: 10px;
+
+}
