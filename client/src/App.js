@@ -10,6 +10,7 @@ import SavedFlightsPage from './pages/saved-flights-page';
 import SignUpPage from './pages/sign-up-page';
 import LoginPage from './pages/login-page';
 import PaymentPage from './components/paymentForm';
+import Contact from './pages/contact';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import ButtonLink from './components/learnMore';
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
           <Route path="/payment" element={<PaymentPage />} />
           <Route path='/learnMore' element={<ButtonLink/>} />
+          <Route path='/contact' element={<Contact />} />
         </Routes>
         <Footer />
       </Router>
