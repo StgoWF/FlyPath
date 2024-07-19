@@ -1,4 +1,3 @@
-// src/pages/SignUpPage.js
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
@@ -6,11 +5,12 @@ import { SIGNUP_USER } from '../graphql/mutations';
 import './SignUpPage.css';
 
 const SignUpPage = () => {
-  const [formState, setFormState] = useState({ username: '', password: '' });
+  const [formState, setFormState] = useState({ firstName: '', lastName: '', username: '', password: '' });
   const navigate = useNavigate();
   const [signUp, { error }] = useMutation(SIGNUP_USER, {
     onCompleted: () => {
       alert('Signup successful! Please log in.');
+      localStorage.setItem('user', JSON.stringify(formState));
       navigate('/login');
     },
     onError: (error) => {
@@ -46,6 +46,22 @@ const SignUpPage = () => {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
+            name="firstName"
+            placeholder="First Name"
+            value={formState.firstName}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="lastName"
+            placeholder="Last Name"
+            value={formState.lastName}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
             name="username"
             placeholder="Username"
             value={formState.username}
@@ -71,4 +87,3 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
