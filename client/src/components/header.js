@@ -19,7 +19,7 @@ const Header = ({ loggedIn, handleLogout }) => {
       <nav>
         <ul className="nav_links">
           <li><Link to="/">Home</Link></li>
-
+          <li><Link to="/search">Search</Link></li>
           <li><Link to="/payment">Payment</Link></li>
           {loggedIn ? (
             <>
