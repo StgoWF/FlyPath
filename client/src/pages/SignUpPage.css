@@ -1,120 +1,118 @@
-/* src/pages/SignUpPage.css */
-
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: whitesmoke;
-    background: url('/public/background.jpeg') no-repeat center center fixed;
-    background-size: cover;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: whitesmoke;
+  background: url('/public/background.jpeg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  padding: 20px;
+}
+
+.background-shapes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.background-shapes .shape {
+  position: absolute;
+  background-color: #f7e5bf;
+  border-radius: 50%;
+}
+
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  top: -50px;
+  left: -50px;
+}
+
+.shape-2 {
+  width: 600px;
+  height: 600px;
+  bottom: -200px;
+  right: -200px;
+}
+
+.signup-box {
+  position: relative;
+  background: whitesmoke;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  max-width: 400px;
+  width: 100%;
+}
+
+.signup-box h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #4a594b;
+}
+
+.signup-box input {
+  width: calc(100% - 30px);
+  padding: 15px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  display: block;
+}
+
+.signup-box button {
+  width: calc(100% - 30px);
+  padding: 15px;
+  background-color: black;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+}
+
+.signup-box button:hover {
+  background-color: #e6a937;
+}
+
+.signup-box label, .signup-box a {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  color: #4a594b;
+}
+
+.signup-box a {
+  color: #fbb040;
+  text-decoration: none;
+}
+
+.signup-box a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .shape-1, .shape-2 {
+    display: none;
   }
-  
-  .signup-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: relative;
+
+  .signup-box {
     padding: 20px;
   }
-  
-  .background-shapes {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+
+  .signup-box input, .signup-box button {
+    width: calc(100% - 20px);
   }
-  
-  .background-shapes .shape {
-    position: absolute;
-    background-color: #f7e5bf;
-    border-radius: 50%;
-  }
-  
-  .shape-1 {
-    width: 300px;
-    height: 300px;
-    top: -50px;
-    left: -50px;
-  }
-  
-  .shape-2 {
-    width: 600px;
-    height: 600px;
-    bottom: -200px;
-    right: -200px;
-  }
-  
-  .signup-box {
-    position: relative;
-    background: whitesmoke;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  .signup-box h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #4a594b;
-  }
-  
-  .signup-box input {
-    width: calc(100% - 30px);
-    padding: 15px;
-    margin: 10px auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    display: block;
-  }
-  
-  .signup-box button {
-    width: calc(100% - 30px);
-    padding: 15px;
-    background-color: black;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-  }
-  
-  .signup-box button:hover {
-    background-color: #e6a937;
-  }
-  
-  .signup-box label, .signup-box a {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    color: #4a594b;
-  }
-  
-  .signup-box a {
-    color: #fbb040;
-    text-decoration: none;
-  }
-  
-  .signup-box a:hover {
-    text-decoration: underline;
-  }
-  
-  @media (max-width: 600px) {
-    .shape-1, .shape-2 {
-      display: none;
-    }
-  
-    .signup-box {
-      padding: 20px;
-    }
-  
-    .signup-box input, .signup-box button {
-      width: calc(100% - 20px);
-    }
-  }
-  
+}
+ 
