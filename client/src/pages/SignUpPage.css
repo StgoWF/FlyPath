@@ -4,9 +4,8 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: whitesmoke;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background: url('/public/background.jpeg') no-repeat center center fixed;
+    background-size: cover;
   }
   
   .signup-container {
@@ -14,7 +13,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #5a6b64;
     position: relative;
     padding: 20px;
   }
