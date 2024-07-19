@@ -178,12 +178,13 @@ const SearchPanel = () => {
         </div>
         <button type="submit" className="search-btn">Search Flights</button>
       </form>
-      <div id="resultsContainer">
-        {Array.isArray(flightResults) ? flightResults.map((flight, index) => (
-          <FlightCard key={index} flight={flight} isReturn={false} onSave={handleSave} onDelete={() => handleDelete(flight.id)} onUpdate={() => handleUpdate(flight.id)} />
-        )) : <p>No flight results found.</p>}
-      </div>
-    </aside>
+    <div className="content" id="resultsContainer">
+    {Array.isArray(flightResults) ? flightResults.map((flight, index) => (
+      <FlightCard key={index} flight={flight} isReturn={false} onSave={handleSave} onDelete={() => handleDelete(flight.id)} onUpdate={() => handleUpdate(flight.id)} />
+    )) : <p>No flight results found.</p>}
+    </div>
+  </aside>
+
   );
 };
 
