@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_SAVED_FLIGHTS } from '../graphql/queries';
 import { DELETE_FLIGHT, UPDATE_FLIGHT } from '../graphql/mutations';
 import UpdateFlightForm from '../components/updateFlightForm';
-import styles from './SavedFlightsPage.module.css';
+import styles from './css/SavedFlightsPage.module.css';
 
 const SavedFlightsPage = () => {
   const { loading, error, data } = useQuery(GET_SAVED_FLIGHTS);

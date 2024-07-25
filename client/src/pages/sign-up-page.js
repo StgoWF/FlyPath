@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { SIGNUP_USER } from '../graphql/mutations';
-import './SignUpPage.css';
+import './css/SignUpPage.css';
 
 const SignUpPage = () => {
   const [formState, setFormState] = useState({ firstName: '', lastName: '', username: '', password: '' });

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../graphql/mutations';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css';
+import './css/LoginPage.css';
 
 const LoginPage = ({ setLoggedIn }) => {
   const [formState, setFormState] = useState({ username: '', password: '' });
